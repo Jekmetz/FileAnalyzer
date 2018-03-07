@@ -21,7 +21,7 @@ public class AnlzFile {
 	String pattern = null;
 	Pattern filter;
 	Matcher matcher;
-	Pattern space = Pattern.compile("([a-zA-z]+)");
+	Pattern space = Pattern.compile("(\\S+)");
 	Matcher wordMatcher;
 	double ratioOfSearch = 0;
 	int lineNumber = 0;

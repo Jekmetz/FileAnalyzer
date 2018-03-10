@@ -78,7 +78,7 @@ public class AnlzFile {
 
 						case 1:
 							System.out.println("You have chosen to look for profanity in the file.");
-							pattern = "(f[eu]*c*k+)|(sh+i*t+)|(cu+n+t+)|\\b-?(ass+)(ed)?-?(hole)?\\b|(di+c+k+)|(tw+a+t+)|\\b(tit)(ies)?(s)?\\b|(b[ie]+t+c+h+)|(he+ll+)(^o)?(hole)?\\b|(god)?(damn)(it)?|(wh+o+r+e)|(ni+g+er)|\\b(c[uo]+c+k+)( *[fs]u*cker)?\\b|-?(piss)-?|(bastard)(o)?";
+							pattern = "(f[eu]*c*k+)|(sh+i*t+)|(cu+n+t+)|\\b-?(ass+)(ed)?-?(hole)?\\b|(di+c+k+)|(tw+a+t+)|\\b(tit)(ies)?(s)?\\b|(b[ie]+t+c+h+)|(he+ll+)(^o)?(hole)?\\b|(god)?(damn)(it)?|(wh+o+r+e)|(ni+g+er)|\\b(c[uo]+c+k+)( *[fs]u*cker)?\\b|-?(piss)-?|(bastard)(o)?|(p+u*s+y+)";
 							stay1 = false;
 							stay = false;
 							break;

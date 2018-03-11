@@ -250,11 +250,12 @@ public class AnlzFile {
 			
 			if (br1 != null) {
 				System.out.println(
-						Integer.toString(i+1) + ". " + storeUsers.get(storeLineNumbers.get(i)) + ": "
-								+ storeLines.get(storeLineNumbers.get(i)));
+						Integer.toString(i+1) + ". " + storeUsers.get(storeLineNumbers.get(i)) + " on " + storeLineNumbers.get(i) + ": "
+                                                                + storeLines.get(storeLineNumbers.get(i)));
 			} else {
 				System.out.println(
-						Integer.toString(i+1) + ". " + storeLines.get(storeLineNumbers.get(i)));
+						Integer.toString(i+1) + ", " + storeLineNumbers.get(i) + ": "
+                                                                + storeLines.get(storeLineNumbers.get(i)));
 			}
 		}
 	}
@@ -274,13 +275,13 @@ public class AnlzFile {
 			
 			for(int i = 0; i < storeLineNumbers.size(); i++) {
 				if (br1 != null) {
-					pw.println(Integer.toString(i+1) + ". " + storeUsers.get(storeLineNumbers.get(i)) + ": "
+					pw.println(Integer.toString(i+1) + ". " + storeUsers.get(storeLineNumbers.get(i)) + " on " + storeLineNumbers.get(i) + ": "
 								+ storeLines.get(storeLineNumbers.get(i)));
 					pw.flush();
 					
 				} else {
 					pw.println(
-							Integer.toString(i+1) + ". " + storeLines.get(storeLineNumbers.get(i)));
+							Integer.toString(i+1) + ", " + storeLineNumbers.get(i) + ": " + storeLines.get(storeLineNumbers.get(i)));
 					pw.flush();
 				}
 			}

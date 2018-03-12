@@ -63,7 +63,7 @@ public class AnlzFile {
 			boolean stay1 = true;
 			int holdLine1 = 0;
 			do {
-				System.out.printf("The file you are searching is %s\n",file.toString());
+				System.out.printf("The file you are searching is %s\n", file.toString());
 				System.out.println("Would you like to search for a predefined pattern? (Profanity) (Type y or n)");
 				holdLine = scanner.nextLine().toLowerCase();
 				switch (holdLine) {
@@ -107,7 +107,7 @@ public class AnlzFile {
 			// CONTINUE BELOW
 			do {
 				line = br.readLine();
-				
+
 				if (br1 != null) {
 					line1 = br1.readLine();
 				}
@@ -141,7 +141,8 @@ public class AnlzFile {
 			// System.out.printf("The ratio of your word to the amount of words in the file
 			// %s is %d to %d. This is %d%% of the whole
 			// file.",file.toString(),filterWordCount,totalWordCount,ratioOfSearch);
-			System.out.println("Would you like to see all of the lines that matched your criteria? (insert 'y' or 'n')");
+			System.out
+					.println("Would you like to see all of the lines that matched your criteria? (insert 'y' or 'n')");
 			stay = true;
 			do {
 				holdLine = scanner.nextLine();
@@ -149,19 +150,20 @@ public class AnlzFile {
 				case "y":
 					System.out.println("Would you like to output them all to a file? (insert 'y' or 'n')");
 					holdLine = scanner.nextLine();
-					
+
 					stay1 = true;
 					do {
 						switch (holdLine) {
 						case "n":
-							printLines(storeUsers,storeLineNumbers,storeLines,br1);
+							printLines(storeUsers, storeLineNumbers, storeLines, br1);
 							stay1 = false;
 							break;
 
 						case "y":
-							printLines(storeUsers,storeLineNumbers,storeLines,br1);
-							System.out.println("\n\nWhat would you like the file to be called? (Please insert name.fileExtension)");							
-							saveLines(storeUsers,storeLineNumbers,storeLines,br1,scanner.nextLine());
+							printLines(storeUsers, storeLineNumbers, storeLines, br1);
+							System.out.println(
+									"\n\nWhat would you like the file to be called? (Please insert name.fileExtension)");
+							saveLines(storeUsers, storeLineNumbers, storeLines, br1, scanner.nextLine());
 							System.out.println("");
 							stay1 = false;
 							break;
@@ -176,7 +178,7 @@ public class AnlzFile {
 
 				case "n":
 					System.out.println("Would you like to output them all to a file? (insert 'y' or 'n')");
-					
+
 					stay1 = true;
 					do {
 						switch (holdLine) {
@@ -185,8 +187,9 @@ public class AnlzFile {
 							break;
 
 						case "y":
-							System.out.println("\n\nWhat would you like the file to be called? (Please insert name.fileExtension)");							
-							saveLines(storeUsers,storeLineNumbers,storeLines,br1,scanner.nextLine());
+							System.out.println(
+									"\n\nWhat would you like the file to be called? (Please insert name.fileExtension)");
+							saveLines(storeUsers, storeLineNumbers, storeLines, br1, scanner.nextLine());
 							stay1 = false;
 							break;
 
@@ -195,7 +198,7 @@ public class AnlzFile {
 							break;
 						}
 					} while (stay1);
-					
+
 					stay = false;
 					break;
 
@@ -203,29 +206,29 @@ public class AnlzFile {
 					System.out.println("Please put 'y' or 'n'.");
 				}
 			} while (stay);
-			
+
 			System.out.println("Would you like to output all of the words found to a file? (insert 'y' or 'n')");
 			stay = true;
 			do {
 				holdLine = scanner.nextLine();
-				switch(holdLine) {
+				switch (holdLine) {
 				case "y":
 					System.out.println("\n\nWhat would you like the file to be called?");
-					saveWords(matchedWords,scanner.nextLine());
+					saveWords(matchedWords, scanner.nextLine());
 					System.out.println("Thank you for using File Analyzer!");
 					stay = false;
 					break;
-					
+
 				case "n":
 					System.out.println("Ok, Thank you for using File Analyzer!");
 					stay = false;
 					break;
-					
+
 				default:
 					System.out.println("Please input 'y' or 'n'.");
 					break;
 				}
-			}while(stay);
+			} while (stay);
 
 		} catch (FileNotFoundException e) {
 			System.out.printf("This file (%s) has launched this exception: %s\n", file.toString(), e.toString());
@@ -244,65 +247,66 @@ public class AnlzFile {
 		}
 
 	}
-	
-	private void printLines(ArrayList<String> storeUsers, ArrayList<Integer> storeLineNumbers, ArrayList<String> storeLines, BufferedReader br1) {
+
+	private void printLines(ArrayList<String> storeUsers, ArrayList<Integer> storeLineNumbers,
+			ArrayList<String> storeLines, BufferedReader br1) {
 		for (int i = 0; i < storeLineNumbers.size(); i++) {
-			
+
 			if (br1 != null) {
-				System.out.println(
-						Integer.toString(i+1) + ". " + storeUsers.get(storeLineNumbers.get(i)) + " on " + storeLineNumbers.get(i) + ": "
-                                                                + storeLines.get(storeLineNumbers.get(i)));
+				System.out.println(Integer.toString(i + 1) + ". " + storeUsers.get(storeLineNumbers.get(i)) + " on "
+						+ storeLineNumbers.get(i) + ": " + storeLines.get(storeLineNumbers.get(i)));
 			} else {
-				System.out.println(
-						Integer.toString(i+1) + ", " + storeLineNumbers.get(i) + ": "
-                                                                + storeLines.get(storeLineNumbers.get(i)));
+				System.out.println(Integer.toString(i + 1) + ", " + storeLineNumbers.get(i) + ": "
+						+ storeLines.get(storeLineNumbers.get(i)));
 			}
 		}
 	}
-	
-	
-	private void saveLines(ArrayList<String> storeUsers, ArrayList<Integer> storeLineNumbers, ArrayList<String> storeLines, BufferedReader br1,String filename) {
+
+	private void saveLines(ArrayList<String> storeUsers, ArrayList<Integer> storeLineNumbers,
+			ArrayList<String> storeLines, BufferedReader br1, String filename) {
 		FileWriter fw;
 		PrintWriter pw = null;
 		File file = new File(filename);
-		
+
 		try {
 			file.createNewFile();
 			fw = new FileWriter(file);
 			pw = new PrintWriter(fw);
 			pw.print("");
 			pw.flush();
-			
-			for(int i = 0; i < storeLineNumbers.size(); i++) {
+
+			for (int i = 0; i < storeLineNumbers.size(); i++) {
 				if (br1 != null) {
-					pw.println(Integer.toString(i+1) + ". " + storeUsers.get(storeLineNumbers.get(i)) + " on " + storeLineNumbers.get(i) + ": "
-								+ storeLines.get(storeLineNumbers.get(i)));
+
+					pw.printf("%4d) %15.3s on %4s: %s", (i+1),
+							storeUsers.get(storeLineNumbers.get(i)), storeLineNumbers.get(i),
+							storeLines.get(storeLineNumbers.get(i)));
 					pw.flush();
-					
+
 				} else {
-					pw.println(
-							Integer.toString(i+1) + ", " + storeLineNumbers.get(i) + ": " + storeLines.get(storeLineNumbers.get(i)));
+				
+					pw.printf("%-4d) line number %+4s: %s",(i+1),storeLineNumbers.get(i),storeLines.get(storeLineNumbers.get(i)));
 					pw.flush();
 				}
 			}
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	private void saveWords(ArrayList<String> storeWords,String filename) {
+
+	private void saveWords(ArrayList<String> storeWords, String filename) {
 		FileWriter fw;
 		PrintWriter pw = null;
 		File file = new File(filename);
-		
+
 		try {
 			file.createNewFile();
 			fw = new FileWriter(file);
 			pw = new PrintWriter(fw);
 			pw.print("");
 			pw.flush();
-			
+
 			for (int i = 0; i < storeWords.size(); i++) {
 				pw.println(storeWords.get(i));
 				pw.flush();

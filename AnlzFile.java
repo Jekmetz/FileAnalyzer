@@ -31,7 +31,8 @@ public class AnlzFile {
 	double ratioOfSearch = 0;
 	int lineNumber = 0;
 	ArrayList<String> storeLines = new ArrayList<String>();
-	ArrayList<Integer> storeLineNumbers = new ArrayList<Integer>();
+	ArrayList<Integer> storeLineNumbersLines = new ArrayList<Integer>();
+	ArrayList<Integer> storeLineNumbersWords = new ArrayList<Integer>();
 	ArrayList<String> storeUsers = new ArrayList<String>();
 	ArrayList<String> matchedWords = new ArrayList<String>();
 
@@ -86,7 +87,7 @@ public class AnlzFile {
 						case 1:
 							//All of the swearing is a necessary evil to search for profanity
 							System.out.println("You have chosen to look for profanity in the file.");
-							pattern = "(f[eu]*c*k+)|(sh+i*t+)|(cu+n+t+)|\\b-?(ass+)(ed)?-?(hole)?\\b|(di+c+k+)|(tw+a+t+)|\\b(tit)(ies)?(s)?\\b|(b[ie]+t+c+h+)|(he+ll+)(^o)?(hole)?\\b|(god)?(damn)(it)?|(wh+o+r+e)|(ni+g+er)|\\b(c[uo]+c+k+)( *[fs]u*cker)?\\b|-?(piss)-?|(bastard)(o)?|(p+u*s+y+)";
+							pattern = "(f[eu]*c*k+)(i*ng)?(ed)?|(bull)?(sh+i*t+)(poster)?(pool)?|(cu+n+t+)|\\b-?(ass+)(ed)?-?(hole)?\\b|(slap)?(di+c+k+)|(tw+a+t+)|\\b(tit)(ies)?(s)?\\b|(b[ie]+t+c+h+)|(he+ll+)(^o)?(hole)?\\b|(god)?(damn)(it)?|(wh+o+r+e)|(ni+g+er)|\\b(c[uo]+c+k+)( *[fs]u*cker)?\\b|-?(piss)-?|(bastard)(o)?|(p+u*s+y+)|\\b(raped?)";
 							stay1 = false; //break second loop
 							stay = false;//break first loop
 							break;
@@ -113,7 +114,6 @@ public class AnlzFile {
 
 			filter = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
 
-			// CONTINUE BELOW
 			do {
 				line = br.readLine();
 
@@ -135,10 +135,11 @@ public class AnlzFile {
 
 				while (matcher.find()) {
 					filterWordCount++;
-					if (!storeLineNumbers.contains(lineNumber)) {
-						storeLineNumbers.add(lineNumber);
+					if (!storeLineNumbersLines.contains(lineNumber)) {
+						storeLineNumbersLines.add(lineNumber);
 					}
 					matchedWords.add(matcher.group());
+					storeLineNumbersWords.add(lineNumber);
 				}
 				lineNumber++;
 			} while (br.ready());
@@ -164,15 +165,15 @@ public class AnlzFile {
 					do {
 						switch (holdLine) {
 						case "n":
-							printLines(storeUsers, storeLineNumbers, storeLines, br1);
+							printLines(storeUsers, storeLineNumbersLines, storeLines, br1);
 							stay1 = false;
 							break;
 
 						case "y":
-							printLines(storeUsers, storeLineNumbers, storeLines, br1);
+							printLines(storeUsers, storeLineNumbersLines, storeLines, br1);
 							System.out.println(
 									"\n\nWhat would you like the file to be called? (Please insert name.fileExtension)");
-							saveLines(storeUsers, storeLineNumbers, storeLines, br1, scanner.nextLine());
+							saveLines(storeUsers, storeLineNumbersLines, storeLines, br1, scanner.nextLine());
 							System.out.println("");
 							stay1 = false;
 							break;
@@ -198,7 +199,7 @@ public class AnlzFile {
 						case "y":
 							System.out.println(
 									"\n\nWhat would you like the file to be called? (Please insert name.fileExtension)");
-							saveLines(storeUsers, storeLineNumbers, storeLines, br1, scanner.nextLine());
+							saveLines(storeUsers, storeLineNumbersLines, storeLines, br1, scanner.nextLine());
 							stay1 = false;
 							break;
 
@@ -223,7 +224,7 @@ public class AnlzFile {
 				switch (holdLine) {
 				case "y":
 					System.out.println("\n\nWhat would you like the file to be called?");
-					saveWords(matchedWords, scanner.nextLine());
+					saveWords(matchedWords, storeLineNumbersWords, scanner.nextLine());
 					System.out.println("Thank you for using File Analyzer!");
 					stay = false;
 					break;
@@ -251,27 +252,26 @@ public class AnlzFile {
 				br1.close();
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println("These files did not close:" + file.toString() + " " + file1.toString());
 		}
 
 	}
 
-	private void printLines(ArrayList<String> storeUsers, ArrayList<Integer> storeLineNumbers,
+	private void printLines(ArrayList<String> storeUsers, ArrayList<Integer> storeLineNumbersLines,
 			ArrayList<String> storeLines, BufferedReader br1) {
-		for (int i = 0; i < storeLineNumbers.size(); i++) {
+		for (int i = 0; i < storeLineNumbersLines.size(); i++) {
 
 			if (br1 != null) {
-				System.out.println(Integer.toString(i + 1) + ". " + storeUsers.get(storeLineNumbers.get(i)) + " on "
-						+ storeLineNumbers.get(i) + ": " + storeLines.get(storeLineNumbers.get(i)));
+				System.out.printf("%4d) %15.15s on %4s: %s\n", (i+1),
+							storeUsers.get(storeLineNumbersLines.get(i)), storeLineNumbersLines.get(i),
+							storeLines.get(storeLineNumbersLines.get(i)));
 			} else {
-				System.out.println(Integer.toString(i + 1) + ", " + storeLineNumbers.get(i) + ": "
-						+ storeLines.get(storeLineNumbers.get(i)));
+				System.out.printf("%-4d) line number %+4s: %s\n",(i+1),storeLineNumbersLines.get(i),storeLines.get(storeLineNumbersLines.get(i)));
 			}
 		}
 	}
 
-	private void saveLines(ArrayList<String> storeUsers, ArrayList<Integer> storeLineNumbers,
+	private void saveLines(ArrayList<String> storeUsers, ArrayList<Integer> storeLineNumbersLines,
 			ArrayList<String> storeLines, BufferedReader br1, String filename) {
 		FileWriter fw;
 		PrintWriter pw = null;
@@ -284,17 +284,23 @@ public class AnlzFile {
 			pw.print("");
 			pw.flush();
 
-			for (int i = 0; i < storeLineNumbers.size(); i++) {
+			for (int i = 0; i < storeLineNumbersLines.size(); i++) {
 				if (br1 != null) {
-
-					pw.printf("%4d) %15.3s on %4s: %s", (i+1),
-							storeUsers.get(storeLineNumbers.get(i)), storeLineNumbers.get(i),
-							storeLines.get(storeLineNumbers.get(i)));
+					
+					pw.println(Integer.toString(i+1) + ") " + storeUsers.get(storeLineNumbersLines.get(i)) +
+						       	" on " + Integer.toString(storeLineNumbersLines.get(i))
+						       	+ ": " + storeLines.get(storeLineNumbersLines.get(i)));
+					//pw.printf("%4d) %15.3s on %4s: %s\n", (i+1),
+					//		storeUsers.get(storeLineNumbersLines.get(i)), storeLineNumbersLines.get(i),
+					//		storeLines.get(storeLineNumbersLines.get(i)));
 					pw.flush();
 
 				} else {
-				
-					pw.printf("%-4d) line number %+4s: %s",(i+1),storeLineNumbers.get(i),storeLines.get(storeLineNumbers.get(i)));
+					
+					
+					pw.println(Integer.toString(i+1) + ") " + " on " + Integer.toString(storeLineNumbersLines.get(i))
+						       	+ ": " + storeLines.get(storeLineNumbersLines.get(i)));	
+					//pw.printf("%-4d) line number %+4s: %s\n",(i+1),storeLineNumbersLines.get(i),storeLines.get(storeLineNumbersLines.get(i)));
 					pw.flush();
 				}
 			}
@@ -304,7 +310,7 @@ public class AnlzFile {
 		}
 	}
 
-	private void saveWords(ArrayList<String> storeWords, String filename) {
+	private void saveWords(ArrayList<String> storeWords,ArrayList<Integer> storeLineNumbersWords, String filename) {
 		FileWriter fw;
 		PrintWriter pw = null;
 		File file = new File(filename);
@@ -317,7 +323,8 @@ public class AnlzFile {
 			pw.flush();
 
 			for (int i = 0; i < storeWords.size(); i++) {
-				pw.println(storeWords.get(i));
+				pw.println(Integer.toString(storeLineNumbersWords.get(i)) + ") " + storeWords.get(i));				
+				//pw.printf("%-4d) %s\n",storeLineNumbersWords.get(i),storeWords.get(i));
 				pw.flush();
 			}
 		} catch (IOException e) {

@@ -35,6 +35,7 @@ public class AnlzFile {
 	ArrayList<Integer> storeLineNumbersWords = new ArrayList<Integer>();
 	ArrayList<String> storeUsers = new ArrayList<String>();
 	ArrayList<String> matchedWords = new ArrayList<String>();
+	String insertLineNumbers = null;
 
 	//constructor that assigns a post file and a username file
 	public AnlzFile(String postsfile, String usersfile) {
@@ -43,7 +44,7 @@ public class AnlzFile {
 	}
 	
 	//constructor that defines a file
-	public void defineFile(String fileName) {
+	public AnlzFile(String fileName) {
 		file = new File(fileName);
 	}
 
@@ -223,8 +224,10 @@ public class AnlzFile {
 				holdLine = scanner.nextLine();
 				switch (holdLine) {
 				case "y":
+					System.out.println("\nWould you like to include line numbers in this file? (insert 'y' or 'n')");
+					insertLineNumbers = scanner.nextLine();
 					System.out.println("\n\nWhat would you like the file to be called?");
-					saveWords(matchedWords, storeLineNumbersWords, scanner.nextLine());
+					saveWords(matchedWords, storeLineNumbersWords, scanner.nextLine(),insertLineNumbers);
 					System.out.println("Thank you for using File Analyzer!");
 					stay = false;
 					break;
@@ -266,7 +269,7 @@ public class AnlzFile {
 							storeUsers.get(storeLineNumbersLines.get(i)), storeLineNumbersLines.get(i),
 							storeLines.get(storeLineNumbersLines.get(i)));
 			} else {
-				System.out.printf("%-4d) line number %+4s: %s\n",(i+1),storeLineNumbersLines.get(i),storeLines.get(storeLineNumbersLines.get(i)));
+				System.out.printf("%4d) line number %4s: %s\n",(i+1),storeLineNumbersLines.get(i),storeLines.get(storeLineNumbersLines.get(i)));
 			}
 		}
 	}
@@ -283,34 +286,33 @@ public class AnlzFile {
 			pw = new PrintWriter(fw);
 			pw.print("");
 			pw.flush();
-
-			for (int i = 0; i < storeLineNumbersLines.size(); i++) {
-				if (br1 != null) {
-					
-					pw.println(Integer.toString(i+1) + ") " + storeUsers.get(storeLineNumbersLines.get(i)) +
-						       	" on " + Integer.toString(storeLineNumbersLines.get(i))
-						       	+ ": " + storeLines.get(storeLineNumbersLines.get(i)));
-					//pw.printf("%4d) %15.3s on %4s: %s\n", (i+1),
-					//		storeUsers.get(storeLineNumbersLines.get(i)), storeLineNumbersLines.get(i),
-					//		storeLines.get(storeLineNumbersLines.get(i)));
-					pw.flush();
-
-				} else {
-					
-					
-					pw.println(Integer.toString(i+1) + ") " + " on " + Integer.toString(storeLineNumbersLines.get(i))
-						       	+ ": " + storeLines.get(storeLineNumbersLines.get(i)));	
-					//pw.printf("%-4d) line number %+4s: %s\n",(i+1),storeLineNumbersLines.get(i),storeLines.get(storeLineNumbersLines.get(i)));
-					pw.flush();
+	
+				for (int i = 0; i < storeLineNumbersLines.size(); i++) {
+					if (br1 != null) {
+						
+						pw.println(Integer.toString(i+1) + ") " + storeUsers.get(storeLineNumbersLines.get(i)) +
+							       	" on " + Integer.toString(storeLineNumbersLines.get(i))
+								       	+ ": " + storeLines.get(storeLineNumbersLines.get(i)));
+						//pw.printf("%4d) %15.3s on %4s: %s\n", (i+1),
+						//		storeUsers.get(storeLineNumbersLines.get(i)), storeLineNumbersLines.get(i),
+						//		storeLines.get(storeLineNumbersLines.get(i)));
+						pw.flush();
+	
+					} else {
+						
+						
+						pw.println(Integer.toString(i+1) + ") " + " on " + Integer.toString(storeLineNumbersLines.get(i))
+							       	+ ": " + storeLines.get(storeLineNumbersLines.get(i)));	
+						//pw.printf("%-4d) line number %+4s: %s\n",(i+1),storeLineNumbersLines.get(i),storeLines.get(storeLineNumbersLines.get(i)));
+						pw.flush();
+					}
 				}
-			}
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void saveWords(ArrayList<String> storeWords,ArrayList<Integer> storeLineNumbersWords, String filename) {
+	private void saveWords(ArrayList<String> storeWords,ArrayList<Integer> storeLineNumbersWords, String filename, String insertLineNumbers) {
 		FileWriter fw;
 		PrintWriter pw = null;
 		File file = new File(filename);
@@ -321,11 +323,22 @@ public class AnlzFile {
 			pw = new PrintWriter(fw);
 			pw.print("");
 			pw.flush();
+			switch(insertLineNumbers){
+				case "y":
+				for (int i = 0; i < storeWords.size(); i++) {
+					pw.println(Integer.toString(storeLineNumbersWords.get(i)) + ") " + storeWords.get(i));				
+					//pw.printf("%-4d) %s\n",storeLineNumbersWords.get(i),storeWords.get(i));
+					pw.flush();
+				}
+				break;
 
-			for (int i = 0; i < storeWords.size(); i++) {
-				pw.println(Integer.toString(storeLineNumbersWords.get(i)) + ") " + storeWords.get(i));				
-				//pw.printf("%-4d) %s\n",storeLineNumbersWords.get(i),storeWords.get(i));
-				pw.flush();
+				default:
+				for (int i = 0; i < storeWords.size(); i++) {
+					pw.println(storeWords.get(i));				
+					//pw.printf("%-4d) %s\n",storeLineNumbersWords.get(i),storeWords.get(i));
+					pw.flush();
+				}
+				break;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

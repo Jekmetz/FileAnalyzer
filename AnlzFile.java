@@ -36,6 +36,7 @@ public class AnlzFile {
 	ArrayList<String> storeUsers = new ArrayList<String>();
 	ArrayList<String> matchedWords = new ArrayList<String>();
 	String insertLineNumbers = null;
+	String tempFileName = null;
 
 	//constructor that assigns a post file and a username file
 	public AnlzFile(String postsfile, String usersfile) {
@@ -152,8 +153,7 @@ public class AnlzFile {
 			// System.out.printf("The ratio of your word to the amount of words in the file
 			// %s is %d to %d. This is %d%% of the whole
 			// file.",file.toString(),filterWordCount,totalWordCount,ratioOfSearch);
-			System.out
-					.println("Would you like to see all of the lines that matched your criteria? (insert 'y' or 'n')");
+			System.out.println("Would you like to see all of the lines that matched your criteria? (insert 'y' or 'n')");
 			stay = true;
 			do {
 				holdLine = scanner.nextLine();
@@ -172,9 +172,9 @@ public class AnlzFile {
 
 						case "y":
 							printLines(storeUsers, storeLineNumbersLines, storeLines, br1);
-							System.out.println(
-									"\n\nWhat would you like the file to be called? (Please insert name.fileExtension)");
-							saveLines(storeUsers, storeLineNumbersLines, storeLines, br1, scanner.nextLine());
+							System.out.println("\n\nWhat would you like the file to be called? (Please insert name.fileExtension)");
+							tempFileName = scanner.nextLine();
+							saveLines(storeUsers, storeLineNumbersLines, storeLines, br1, tempFileName);
 							System.out.println("");
 							stay1 = false;
 							break;
@@ -199,9 +199,9 @@ public class AnlzFile {
 							break;
 
 						case "y":
-							System.out.println(
-									"\n\nWhat would you like the file to be called? (Please insert name.fileExtension)");
-							saveLines(storeUsers, storeLineNumbersLines, storeLines, br1, scanner.nextLine());
+							System.out.println("\n\nWhat would you like the file to be called? (Please insert name.fileExtension)");
+							tempFileName = scanner.nextLine();
+							saveLines(storeUsers, storeLineNumbersLines, storeLines, br1, tempFileName);
 							stay1 = false;
 							break;
 
@@ -228,7 +228,9 @@ public class AnlzFile {
 					System.out.println("\nWould you like to include line numbers in this file? (insert 'y' or 'n')");
 					insertLineNumbers = scanner.nextLine();
 					System.out.println("\n\nWhat would you like the file to be called?");
-					saveWords(matchedWords, storeLineNumbersWords, scanner.nextLine(),insertLineNumbers);
+					tempFileName = scanner.nextLine();
+					saveWords(matchedWords, storeLineNumbersWords, tempFileName,insertLineNumbers);
+					saveStats(filterWordCount, totalWordCount, ratioOfSearch, tempFileName, pattern);
 					System.out.println("Thank you for using File Analyzer!");
 					stay = false;
 					break;
@@ -342,6 +344,35 @@ public class AnlzFile {
 				break;
 			}
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void saveStats(int filterWordCount, int totalWordCount, double ratioOfSearch, String filename, String pattern){
+		FileWriter fw;
+		PrintWriter pw = null;
+		File file = new File(filename.substring(0,filename.length()-4) + "stats" + filename.substring(filename.length()-4,filename.length()));
+		
+		try{
+			file.createNewFile();
+			fw = new FileWriter(file);
+			pw = new PrintWriter(fw);
+			pw.print("");
+			pw.flush();
+			pw.println("File that was searched: " + file.toString());
+			pw.flush();
+			pw.println("Pattern that was searched: " + pattern);
+			pw.flush();
+			pw.println("Filtered Word Count: " + Integer.toString(filterWordCount));
+			pw.flush();
+			pw.println("Total Word Count: " + Integer.toString(totalWordCount));
+			pw.flush();
+			pw.println("Ratio of Search: " + Double.toString(ratioOfSearch));
+			pw.flush();
+				
+	//			("Filtered Word Count: %d\nTotal Word Count: %d\nRatio of Search: %.2f%%\n",
+	//				filterWordCount, totalWordCount, ratioOfSearch)
+		}catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

@@ -189,6 +189,7 @@ public class AnlzFile {
 
 				case "n":
 					System.out.println("Would you like to output them all to a file? (insert 'y' or 'n')");
+					holdLine = scanner.nextLine();
 
 					stay1 = true;
 					do {

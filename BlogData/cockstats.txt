@@ -1,0 +1,5 @@
+File that was searched: cock.txt
+Pattern that was searched: co*ck
+Filtered Word Count: 5
+Total Word Count: 799
+Ratio of Search: 0.6257822277847309

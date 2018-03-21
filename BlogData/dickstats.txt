@@ -1,0 +1,5 @@
+File that was searched: dick.txt
+Pattern that was searched: di*ck
+Filtered Word Count: 10
+Total Word Count: 799
+Ratio of Search: 1.2515644555694618

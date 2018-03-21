@@ -1,0 +1,5 @@
+File that was searched: fword.txt
+Pattern that was searched: fuck
+Filtered Word Count: 251
+Total Word Count: 799
+Ratio of Search: 31.414267834793492

@@ -1,5 +1,0 @@
-File that was searched: sword.txt
-Pattern that was searched: shit
-Filtered Word Count: 183
-Total Word Count: 799
-Ratio of Search: 22.90362953692115

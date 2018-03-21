@@ -1,5 +1,0 @@
-File that was searched: bword.txt
-Pattern that was searched: bi*tch
-Filtered Word Count: 16
-Total Word Count: 799
-Ratio of Search: 2.002503128911139

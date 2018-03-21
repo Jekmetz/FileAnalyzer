@@ -1,5 +1,0 @@
-File that was searched: rape.txt
-Pattern that was searched: rape
-Filtered Word Count: 59
-Total Word Count: 799
-Ratio of Search: 7.3842302878598245

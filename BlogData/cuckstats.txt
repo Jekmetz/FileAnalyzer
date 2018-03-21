@@ -1,5 +1,0 @@
-File that was searched: cuck.txt
-Pattern that was searched: cuck
-Filtered Word Count: 77
-Total Word Count: 799
-Ratio of Search: 9.637046307884855

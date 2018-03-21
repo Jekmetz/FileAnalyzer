@@ -230,7 +230,7 @@ public class AnlzFile {
 					System.out.println("\n\nWhat would you like the file to be called?");
 					tempFileName = scanner.nextLine();
 					saveWords(matchedWords, storeLineNumbersWords, tempFileName,insertLineNumbers);
-					saveStats(filterWordCount, totalWordCount, ratioOfSearch, file.toString(), pattern);
+					saveStats(filterWordCount, totalWordCount, ratioOfSearch, tempFileName, pattern);
 					System.out.println("Thank you for using File Analyzer!");
 					stay = false;
 					break;
@@ -367,7 +367,7 @@ public class AnlzFile {
 			pw.flush();
 			pw.println("Total Word Count: " + Integer.toString(totalWordCount));
 			pw.flush();
-			pw.println("Ratio of Search: " + Double.toString(ratioOfSearch));
+			pw.println("Ratio of Search: " + Double.toString(ratioOfSearch) + "%");
 			pw.flush();
 				
 	//			("Filtered Word Count: %d\nTotal Word Count: %d\nRatio of Search: %.2f%%\n",

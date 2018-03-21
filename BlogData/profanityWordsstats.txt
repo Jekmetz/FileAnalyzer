@@ -1,0 +1,5 @@
+File that was searched: profanityWords.txt
+Pattern that was searched: (f[eu]*c*k+)(i*ng)?(ed)?|(bull)?(sh+i*t+)(poster)?(pool)?|(cu+n+t+)|\b-?(ass+)(ed)?-?(hole)?\b|(slap)?(di+c+k+)|(tw+a+t+)|\b(tit)(ies)?(s)?\b|(b[ie]+t+c+h+)|(he+ll+)(^o)?(hole)?\b|(god)?(damn)(it)?|(wh+o+r+e)|(ni+g+er)|\b(c[uo]+c+k+)( *[fs]u*cker)?\b|-?(piss)-?|(bastard)(o)?|(p+u*s+y+)|\b(raped?)
+Filtered Word Count: 799
+Total Word Count: 144889
+Ratio of Search: 0.5514566323185335

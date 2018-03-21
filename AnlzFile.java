@@ -359,7 +359,7 @@ public class AnlzFile {
 			pw = new PrintWriter(fw);
 			pw.print("");
 			pw.flush();
-			pw.println("File that was searched: " + file.toString());
+			pw.println("File that was searched: " + filename);
 			pw.flush();
 			pw.println("Pattern that was searched: " + pattern);
 			pw.flush();

@@ -230,7 +230,7 @@ public class AnlzFile {
 					System.out.println("\n\nWhat would you like the file to be called?");
 					tempFileName = scanner.nextLine();
 					saveWords(matchedWords, storeLineNumbersWords, tempFileName,insertLineNumbers);
-					saveStats(filterWordCount, totalWordCount, ratioOfSearch, tempFileName, pattern);
+					saveStats(filterWordCount, totalWordCount, ratioOfSearch, file.toString(), pattern);
 					System.out.println("Thank you for using File Analyzer!");
 					stay = false;
 					break;

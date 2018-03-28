@@ -3,7 +3,7 @@ public class Main {
 		AnlzFile redditPosts = new AnlzFile("redditPosts.txt","redditAutors.txt");
 		//AnlzFile redditPosts = new AnlzFile("redditPosts.txt");
 		//AnlzFile wordtest = new AnlzFile("wordtest.txt");
-		redditPosts.userSearch();
-		//wordtest.userSearch();
+		//redditPosts.userSearch();
+		wordtest.userSearch();
 	}
 }
